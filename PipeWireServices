@@ -1,0 +1,34 @@
+// check pipewire serivce if running or not
+systemctl --user status pipewire pipewire-pulse wireplumber
+
+// restart pipwire serivice if failed 
+systemctl --user restart pipewire pipewire-pulse wireplumber
+
+// PipeWire Config for NixOS
+
+# Disable pulseaudio if it's lingering
+hardware.pulseaudio.enable = false;
+
+# Enable rtkit for real-time priority (highly recommended for pipewire)
+security.rtkit.enable = true;
+
+services.pipewire = {
+  enable = true;
+  alsa.enable = true;
+  alsa.support32Bit = true;
+  pulse.enable = true;
+  # If you want to use JACK applications too
+  jack.enable = true;
+  
+  # Wireplumber is the modern default session manager
+  wireplumber.enable = true;
+};
+
+// This check the WirePlumber
+wpctl status
+
+// If dummy output or muted / use this / replace the id with urs (eg. 48)
+wpctl set-mute <ID> 0
+wpctl set-volume <ID> 0.50
+
+
