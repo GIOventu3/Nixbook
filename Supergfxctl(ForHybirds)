@@ -1,0 +1,11 @@
+# Keeps the daemon enabled perfectly
+  services.supergfxd.enable = true;
+
+# This check status
+  supergfxctl -g
+
+# Powersaving mode/ uses ur iGPU
+  supergfxctl -m Integrated
+
+# Switch to game mode/ Use ur dGPU
+  supergfxctl -m Hybrid
